@@ -53,35 +53,37 @@ function NavSection({ label, items, pathName }: NavSectionProps) {
 
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                isActive={
-                  item.url
-                    ? item.url === "/"
-                      ? pathName === "/"
-                      : pathName.startsWith(item.url)
-                    : false
-                }
-                asChild={!!item.url}
-                onClick={item.onClick}
-                tooltip={item.title}
-                className="h-9 px-3 py-2 text-[13px] tracking-tight font-medium border border-transparent data-[active=true]:border-border data-[active=true]:shadow-[0px_1px_1px_0px_rgba(44,54,53,0.03),inset_0px_0px_0px_2px_white]"
-              >
-                {item.url ? (
-                  <Link href={item.url}>
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </Link>
-                ) : (
-                  <>
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </>
-                )}
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {items.map((item) => {
+            const isActive = item.url
+              ? item.url === "/"
+                ? pathName === "/"
+                : pathName === item.url || pathName.startsWith(`${item.url}/`)
+              : false;
+
+            return (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  isActive={isActive}
+                  asChild={!!item.url}
+                  onClick={item.onClick}
+                  tooltip={item.title}
+                  className="h-9 px-3 py-2 text-[13px] tracking-tight font-medium border border-transparent data-[active=true]:border-border data-[active=true]:shadow-[0px_1px_1px_0px_rgba(44,54,53,0.03),inset_0px_0px_0px_2px_white]"
+                >
+                  {item.url ? (
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  ) : (
+                    <>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </>
+                  )}
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
@@ -106,9 +108,9 @@ export function DashboardSidebar() {
     {
       icon: AudioLines,
       title: "Text to speech",
-      url: "text-to-speech/",
+      url: "/text-to-speech",
     },
-    { icon: Volume2, title: "Voice cloning" },
+    { icon: Volume2, title: "Voice cloning", url: "/voice-cloning" },
   ];
 
   const otherMenuItems: MenuItem[] = [
