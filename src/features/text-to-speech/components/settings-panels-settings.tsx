@@ -7,6 +7,7 @@ import { useStore } from "@tanstack/react-form";
 
 import { sliders } from "@/features/text-to-speech/data/slider";
 import { ttsFormOptions } from "./text-to-speech-form";
+import { VoiceSelector } from "./voice-selector";
 
 export default function SettingsPanelSettings() {
   const form = useTypedAppFormContext(ttsFormOptions);
@@ -15,8 +16,7 @@ export default function SettingsPanelSettings() {
     <>
       {/* Voice Style Dropdown Section */}
       <div className="border-b border-dashed p-4">
-        {/* <VoiceSelector /> */}
-        <p>Voice selectore later</p>
+        <VoiceSelector />
       </div>
 
       <div className="p-4 flex-1">
